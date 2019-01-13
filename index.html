@@ -6,11 +6,37 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <!-- проверка проверочка -->
+    <script src="jwerty.js"></script>
+    <script src="stats.js"></script>
 </head>
 <body>
+    <script>
+        var stats = new Stats();
+        stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild( stats.dom );
+
+        function animate() {
+
+            stats.begin();
+
+            // monitored code goes here
+
+            stats.end();
+
+            requestAnimationFrame( animate );
+
+        }
+
+        requestAnimationFrame( animate );
+
+        // jwerty.key('w', function () { console.log('Player moved: Up')});
+        // jwerty.key('a', function () { console.log('Player moved: Left')});
+        // jwerty.key('s', function () { console.log('Player moved: Down')});
+        // jwerty.key('d', function () { console.log('Player moved: Right')});
+    </script>
     <script src="img/player/scorpion.js"></script>
-    <script src="player.js"></script>
+    <script src="player1.js"></script>
+    <script src="player2.js"></script>
     <script src="render.js"></script>
     <script src="main.js"></script>
 </body>

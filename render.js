@@ -1,31 +1,26 @@
-
+let atlas = scorpion;
 
 class Render{
-    constructor(player = new Player){
-        this.player = player;
+    constructor(){
+        // this.player = player;
         this.index = 0;
         this.frameCount = 0;
-
         this.atlases=[];
         this.loadAtlas('scorpion','img/player/scorpion.png');
-        
-        // this.loadAtlas('sub-zero', '');
     }
 
-    draw(){
-        ctx.clearRect(0, 0,width, height);
-        this.show();
-        this.move();
-        this.attack();
+    draw(player){
+        this.show(player);
+        this.move(player);
+        // this.attack();
     }
 
-    show(){
-        if(this.player.state !== this.player.lastState){
+    show(player){
+        if(player.state !== player.lastState){
             this.index = 0;
-            this.player.lastState = this.player.state;
+            player.lastState = player.state;
         }
-        let spr = atlas[this.player.state];
-         
+        let spr = atlas[player.state];
         if(this.frameCount>spr.length){
             this.frameCount = 0;
             if (this.index + 1 === spr.length){
@@ -34,21 +29,20 @@ class Render{
             this.index = (this.index + 1) % spr.length;
         }
         let a = spr[this.index].frame;
-        this.w = a.w ;
-        this.h = a.h;
+        this.w = a.w*2 ;
+        this.h = a.h*2;
         
-        if(this.view === -1){
+        if(player.view === -1){
             ctx.save();
             ctx.scale(-1, 1);
             ctx.drawImage(this.atlases['scorpion'], a.x, a.y, a.w, a.h,
-            -this.player.x-this.w, this.player.y, this.w, this.h );
+            -player.x-this.w, player.y, this.w, this.h );
             ctx.restore();
         }else {
             ctx.drawImage(this.atlases['scorpion'], a.x, a.y, a.w, a.h,
-            this.player.x, this.player.y, this.w, this.h );
+            player.x, player.y, this.w, this.h );
         }
         this.frameCount++;
-        console.log(this.frameCount)
     }
   
     loadAtlas(master, atlas){
@@ -57,17 +51,22 @@ class Render{
         this.atlases[master] = img;
     }
 
-    move(){
-        if ((this.player.dir === -1 && this.player.x <= 0) || 
-        (this.player.dir === 1 && this.player.x + this.w >= width)) return;
+
+    move(player){
+        // if ((this.player.dir === -1 && this.player.x <= 0) || 
+        // (this.player.dir === 1 && this.player.x + this.w >= width)) return;
         
-        if(this.shieldOn)return;
-        if(this.runOn){
-            this.player.x += this.dir * this.speed;
-            this.player.state = 'run';
-        }else{
-            this.player.state = 'idle'
+        // if(this.shieldOn)return;
+        if(player.runOn){
+            player.x += player.dir * player.speed;
+            player.state = 'run';
         }
+        // else{
+        //     this.player.state = 'idle'
+        // }
+        // console.log(this.player.dir)
+        // this.player.x += this.player.dir * this.player.speed;
+        // this.player.state = 'run';
     }
     
     attack(){

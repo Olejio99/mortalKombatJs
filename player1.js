@@ -1,7 +1,7 @@
-class Player{
+class Player1{
     constructor(){
-        this.x = window.innerWidth / 2;
-        this.y = window.innerHeight / 2;
+        this.x = 0;
+        this.y = window.innerHeight / 2 + 80 ;
         this.state = 'run';
         this.lastState = 'run';
         this.punchPower = 0;
@@ -9,12 +9,13 @@ class Player{
         this.dir = 1;
         this.view = 1;
         this.speed = 3;
+        this.runOn = false;
     }
 
 
 }
 
-class Scorpion extends Player{
+class Scorpion extends Player1{
     constructor(){
         this.x = x;
         this.y = y;
