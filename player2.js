@@ -10,6 +10,8 @@ class Player2{
         this.view = -1;
         this.speed = 3;
         this.runOn = false;
+        this.w = 150;        
+        this.h = 264;
     }
 }
 

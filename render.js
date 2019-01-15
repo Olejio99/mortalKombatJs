@@ -1,18 +1,54 @@
 let atlas = scorpion;
-
+// this.player1 = new Player1;
+// this.player2 = new Player2;
 class Render{
     constructor(){
         // this.player = player;
+        this.player1 = new Player1;
+        this.player2 = new Player2;
         this.index = 0;
         this.frameCount = 0;
         this.atlases=[];
         this.loadAtlas('scorpion','img/player/scorpion.png');
     }
 
-    draw(player){
-        this.show(player);
-        this.move(player);
+    draw(){
+        ctx.clearRect(0, 0,width, height);
+        // this.show(player);
+        // this.move(player);
         // this.attack();
+
+        // document.addEventListener('keydown', (e) => {
+        //     if (e.keyCode == 37) {
+        //         this.player1.view = this.player1.dir  = -1;
+        //         this.player1.runOn = true;
+        //     } else if (e.keyCode == 39) {
+        //         this.player1.view = this.player1.dir  = 1;
+        //         this.player1.runOn = true;
+        //     }else if (e.keyCode == 65) {
+        //         this.player2.view = this.player2.dir  = -1;
+        //         this.player2.runOn = true;
+        //     }else if (e.keyCode == 68) {
+        //         this.player2.view = this.player2.dir  = 1;
+        //         this.player2.runOn = true;
+        //     }
+        // });
+
+        // document.addEventListener('keyup', (e) => {
+        //     if (e.keyCode == 37 || e.keyCode == 39 ) {
+        //         this.player1.dir = 0;
+        //         this.player1.runOn = false;
+        //     }
+        //     if(e.keyCode == 65 || e.keyCode == 68){
+        //         this.player2.dir = 0;
+        //         this.player2.runOn = false;
+        //     }
+        // });
+
+        this.show(this.player1);
+        this.show(this.player2);
+        this.move(this.player1);
+        this.move(this.player2);
     }
 
     show(player){
@@ -29,9 +65,8 @@ class Render{
             this.index = (this.index + 1) % spr.length;
         }
         let a = spr[this.index].frame;
-        this.w = a.w*2 ;
+        this.w = a.w*2;
         this.h = a.h*2;
-        
         if(player.view === -1){
             ctx.save();
             ctx.scale(-1, 1);
@@ -53,8 +88,35 @@ class Render{
 
 
     move(player){
-        // if ((this.player.dir === -1 && this.player.x <= 0) || 
-        // (this.player.dir === 1 && this.player.x + this.w >= width)) return;
+        document.addEventListener('keydown', (e) => {
+            if (e.keyCode == 37) {
+                this.player1.view = this.player1.dir  = -1;
+                this.player1.runOn = true;
+            } else if (e.keyCode == 39) {
+                this.player1.view = this.player1.dir  = 1;
+                this.player1.runOn = true;
+            }else if (e.keyCode == 65) {
+                this.player2.view = this.player2.dir  = -1;
+                this.player2.runOn = true;
+            }else if (e.keyCode == 68) {
+                this.player2.view = this.player2.dir  = 1;
+                this.player2.runOn = true;
+            }
+        });
+        document.addEventListener('keyup', (e) => {
+            if (e.keyCode == 37 || e.keyCode == 39 ) {
+                this.player1.dir = 0;
+                this.player1.runOn = false;
+            }
+            if(e.keyCode == 65 || e.keyCode == 68){
+                this.player2.dir = 0;
+                this.player2.runOn = false;
+            }
+        });
+
+
+        if ((player.dir === -1 && player.x <= 0) || 
+        (player.dir === 1 && player.x + player.w >= width)) return;
         
         // if(this.shieldOn)return;
         if(player.runOn){
@@ -74,6 +136,12 @@ class Render{
     }
     skills(){
 
+    }
+    loop(){
+        this.draw();
+        requestAnimationFrame(() => {
+            this.loop();
+        });
     }
 }
 // let render = new Render;

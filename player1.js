@@ -10,15 +10,17 @@ class Player1{
         this.view = 1;
         this.speed = 3;
         this.runOn = false;
+        this.w = 150;
+        this.h = 264;
     }
 
 
 }
 
-class Scorpion extends Player1{
-    constructor(){
-        this.x = x;
-        this.y = y;
-        this.dir = dir;
-    }
-}
+// class Scorpion extends Player1{
+//     constructor(){
+//         this.x = x;
+//         this.y = y;
+//         this.dir = dir;
+//     }
+// }
